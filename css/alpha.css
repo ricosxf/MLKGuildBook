@@ -1,0 +1,18 @@
+html {
+    background: url('/img/bg/7.jpg');
+    background-position: 100% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body {
+    background: rgba(255, 255, 255, 0);
+}
+
+.wl-box {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.wl-nav {
+    opacity: 0.7;
+}
