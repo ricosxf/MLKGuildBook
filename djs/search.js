@@ -7,7 +7,7 @@ var DRAWED_COUNT = 0;
 
 $().ready(function () {
 
-    $.getJSON(ROOTDIR + "/_d.json")
+    $.getJSON(ROOTDIR + "/d.json")
         .done(function (data) {
             DATE_INDEX = data;
             var keyword = GetQueryString("keyword");
@@ -46,7 +46,7 @@ search = function (keyword) {
     $(".loading-msg").html("正在查找...");
     //$("#loading-progress").css({width:"100%"});
     console.log("search:" + keyword);
-    $.getJSON(ROOTDIR + "/_index.json").done(function (data) {
+    $.getJSON(ROOTDIR + "/index.json").done(function (data) {
         var length = JSONLength(data);
         var count = 0;
         $.each(data, function (k, v) {

@@ -16,7 +16,7 @@ showDetail = function () {
 showHistoric = function (page) {
     //drawOne("2016-7-11.15.48");
 
-    $.getJSON(ROOTDIR + "/_d.json")
+    $.getJSON(ROOTDIR + "/d.json")
         .done(function (data) {
             NOW_PAGE=page;
             $(".np").html(page);
