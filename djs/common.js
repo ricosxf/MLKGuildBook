@@ -1,5 +1,5 @@
 
-var ROOTDIR = "https://wdcat.github.io/MLKGuildBook/data/";
+var ROOTDIR = "https://wdcat.github.io/mthebook/data/";
 errpush = function (msg) {
     alert(msg);
 };
