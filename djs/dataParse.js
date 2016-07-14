@@ -22,10 +22,11 @@ var dp={
                 }
                 ret=filter($(objs[x]),ret);
                 $(objs[x]).html(ret);
+                $(objs[x]).show();
             }
         }
 };
 $.holdReady(true);
-$.getScript("djs/filter.js").done(function(){
+$.getScript("djs/filter.js"+"?timestamp=" + new Date().getTime()).done(function(){
     $.holdReady(false);
 });

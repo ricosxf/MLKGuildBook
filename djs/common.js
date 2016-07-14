@@ -1,11 +1,11 @@
-
 var ROOTDIR = "https://wdcat.github.io/mthebook/data/";
 errpush = function (msg) {
     alert(msg);
 };
 GetQueryString = function (name) {
-    return GetQueryString_(name)//.replace(/>/g,"").replace(/</g,"");
-}
+    var gqs = GetQueryString_(name);
+    return gqs != null ? gqs.replace(/>/g, "").replace(/</g, "") : null;
+};
 GetQueryString_ = function (name) { // Copy form others' code
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
@@ -30,7 +30,7 @@ formatTime = function (ns) {
 _go = function (url) {
     window.location.href = url;
 };
-function JSONLength(obj) {
+JSONLength = function (obj) {
     var size = 0, key;
     for (key in obj) {
         if (obj.hasOwnProperty(key)) size++;
@@ -42,7 +42,7 @@ $().ready(function () {
         jQuery.extend(jQuery.fn.dataTableExt.oSort, {
             "num-pre": function (a) {
                 var x = String(a).replace(/<[\s\S]*?>/g, "");
-                x = x.replace(/&amp;nbsp;/ig, "");         
+                x = x.replace(/&amp;nbsp;/ig, "");
                 return parseInt(x);
             },
 
@@ -50,7 +50,7 @@ $().ready(function () {
                 return ((a < b) ? -1 : ((a > b) ? 1 : 0));
             },
 
-            "num-desc": function (a, b) {            
+            "num-desc": function (a, b) {
                 return ((a < b) ? 1 : ((a > b) ? -1 : 0));
             }
         });

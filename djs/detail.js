@@ -3,11 +3,13 @@ var GID;
 var DATE;
 var COUNT = 0;
 var NOW_PAGE = 0;
+var NOW_DATE;
 showDetail = function () {
-    var uri = ROOTDIR + DATE + "/result/" + GID + ".json";
+    var uri = ROOTDIR + DATE + "/result/" + GID + ".json"+"?timestamp=" + new Date().getTime();
     console.log(uri);
     $.getJSON(uri).done(function (data) {
         data['date']=DATE;
+        NOW_DATE=DATE;
         dp.parse($(".guild-detail"), data);
     }).fail(function () {
         errpush("fail to get");
@@ -16,7 +18,7 @@ showDetail = function () {
 showHistoric = function (page) {
     //drawOne("2016-7-11.15.48");
 
-    $.getJSON(ROOTDIR + "/d.json")
+    $.getJSON(ROOTDIR + "/d.json"+"?timestamp=" + new Date().getTime())
         .done(function (data) {
             NOW_PAGE=page;
             $(".np").html(page);
@@ -86,6 +88,9 @@ drawOne = function (date) {
         tr.find(".btn-detail").click(function(){
             _go("?gid="+GID+"&date="+date);
         });
+        if(date==NOW_DATE){
+            tr.addClass("warning").find(".btn-detail").html("-");
+        }
     });
 
 

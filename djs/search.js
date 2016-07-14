@@ -1,4 +1,3 @@
-
 var DATE_INDEX = 0;
 var SEARCH_DONE = false;
 var DRAW_BUSY = false;
@@ -7,7 +6,7 @@ var DRAWED_COUNT = 0;
 
 $().ready(function () {
 
-    $.getJSON(ROOTDIR + "/d.json")
+    $.getJSON(ROOTDIR + "/d.json"+"?timestamp=" + new Date().getTime())
         .done(function (data) {
             DATE_INDEX = data;
             var keyword = GetQueryString("keyword");
@@ -21,14 +20,14 @@ $().ready(function () {
                 $("#searchbox").val(keyword);
                 if (keyword.length == 0 && sure != 1) {
                     $(".big-warn").show();
-                    $(".yes").click(function(){
+                    $(".yes").click(function () {
                         $(".big-warn").hide();
                         setTimeout(function () {
                             search(keyword);
                         }, 200);
                         $(".search-result").show();
                     });
-                }else {
+                } else {
                     setTimeout(function () {
                         search(keyword);
                     }, 200);
@@ -46,7 +45,7 @@ search = function (keyword) {
     $(".loading-msg").html("正在查找...");
     //$("#loading-progress").css({width:"100%"});
     console.log("search:" + keyword);
-    $.getJSON(ROOTDIR + "/index.json").done(function (data) {
+    $.getJSON(ROOTDIR + "/index.json"+"?timestamp=" + new Date().getTime()).done(function (data) {
         var length = JSONLength(data);
         var count = 0;
         $.each(data, function (k, v) {
@@ -86,7 +85,7 @@ search = function (keyword) {
                 }
                 if (count == length - 1) {
                     if (FOUND_COUNT == 0) {
-                        $(".loading-msg").html("找不到指定的工会喵");
+                        $(".loading-msg").html("找不到指定的工会..喵呜~<br>PS:曾用名只记录有7月12日之后的喵~");
                     } else {
                         SEARCH_DONE = true;
                         $(".loading-msg").html("正在加载数据(数据过多时可能会有迷之卡顿,请耐心等待喵~)...");
@@ -125,19 +124,19 @@ drawOne = function (gid, tDateIndex, callback) {
 drawOneByDate = function (gid, date, callback) {
     var uri = ROOTDIR + date + "/result/" + gid + ".json";
     $.getJSON(uri).done(function (data) {
-        //data['date'] = date;
         var tstr = "" + gid + "".replace(/\./g, "-").replace(/\(/g, "").replace(/\)/g, "").replace(/ /g, "");
-        var tr = $("<tr></tr>");
-        tr.html($(".historic-simple").html());
-        tr.addClass(tstr);
-        tr.addClass("historic-p");
-        tr.appendTo($(".historic"));
         data.date = date;
+        var tr=$("<tr></tr>");
+        tr.html($(".historic-simple").html());
+            tr.addClass(tstr);
+            tr.addClass("historic-p");
+            tr.show();
+            tr.find(".btn-detail").click(function () {
+                window.open("detail.html?gid=" + gid + "&date=" + date);
+            });
+            tr.appendTo($(".historic"));
         dp.parse($("." + tstr), data);
-        tr.show();
-        tr.find(".btn-detail").click(function () {
-            _go("detail.html?gid=" + gid + "&date=" + date);
-        });
+
         callback(true);
     }).fail(function () {
         callback(false);
