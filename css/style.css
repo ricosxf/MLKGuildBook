@@ -5,7 +5,9 @@ html {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-
+.ryrx{
+    display: none;
+}
 body {
     padding-top: 70px;
     background: rgba(0, 0, 0, 0);

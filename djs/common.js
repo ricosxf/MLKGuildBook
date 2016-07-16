@@ -1,6 +1,10 @@
 var ROOTDIR = "https://wdcat.github.io/mthebook/data/";
 errpush = function (msg) {
-    alert(msg);
+    $(".errpush").show();
+    $("<li></li>").html("<code>" + msg + "</code>").appendTo($(".errpush").find("ul"));
+};
+window.onerror = function (message, source, lineno, colno, error) {
+    errpush(message + " source:'" + source + "' lineno:" + lineno + " colno:" + colno + " error:'" + error + "'");
 };
 GetQueryString = function (name) {
     var gqs = GetQueryString_(name);
@@ -38,6 +42,34 @@ JSONLength = function (obj) {
     return size;
 };
 $().ready(function () {
+    var setActiveStyleSheet=function(css){
+        var node = document.createElement('link');
+        node.rel = 'stylesheet';
+        node.href = "css/"+css;
+        document.getElementsByTagName('head')[0].appendChild(node);
+    };
+    if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+
+        if (window.location.href.indexOf("?mobile") < 0) {
+
+            try {
+
+                if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                    // 判断访问环境是 Android|webOS|iPhone|iPod|BlackBerry 则加载以下样式
+                    setActiveStyleSheet("style_mobile.css");
+                }
+                else {
+                    // 判断访问环境是 其他移动设备 则加载以下样式
+                    setActiveStyleSheet("style.css");
+                }
+            }
+            catch (e) {
+            }
+        }
+    }
+    else {
+        setActiveStyleSheet("style.css");
+    }
     if (typeof(jQuery.fn.dataTableExt) != "undefined")
         jQuery.extend(jQuery.fn.dataTableExt.oSort, {
             "num-pre": function (a) {
@@ -54,4 +86,12 @@ $().ready(function () {
                 return ((a < b) ? 1 : ((a > b) ? -1 : 0));
             }
         });
+    $(".ryrx").parent().hover(function(){
+        $(this).find(".ryrx").show();
+    },function(){
+        $(this).find(".ryrx").hide();
+    });
+    $(".swap").click(function(){
+        eval("更换会长();");
+    });
 });

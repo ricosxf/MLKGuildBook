@@ -17,7 +17,6 @@ showDetail = function () {
 };
 showHistoric = function (page) {
     //drawOne("2016-7-11.15.48");
-
     $.getJSON(ROOTDIR + "/d.json"+"?timestamp=" + new Date().getTime())
         .done(function (data) {
             NOW_PAGE=page;
@@ -27,10 +26,16 @@ showHistoric = function (page) {
             if (page*10>=COUNT)$(".p-next").hide(); else $(".p-next").show();
             $(".totally").html(COUNT);
             $(".historic-p").remove();
-            for (var x = (page - 1) * 10; x < page * 10; x++) {
-                if (typeof(data[x]) == "undefined")break;
-                drawOne(data[x]);
-            }
+            var loader=function(now){
+                if(now >= page * 10){
+                    return;
+                }
+                if (typeof(data[now]) == "undefined")return;
+                else drawOne(data[now],function(){
+                    loader(now+1);
+                });
+            };
+            loader(0);
             /*
             $('#historic-table').DataTable({
                 "aoColumnDefs": [
@@ -72,8 +77,37 @@ $().ready(function () {
         showHistoric(1);
     }, 1000);
 });
-
-drawOne = function (date) {
+calcRank=function(lrank,nrank){
+    var scTableA={
+        1:[80,72,64,56,48,50,32,24,16,8],
+        2:[40,34,28,22,16,10,4,-1]
+    };
+    var scTableB={
+        2:[-1,-8,-14],
+        3:[-10,-14,-18,-22,-26,-30,-34,-38,-42,-46],
+        4:[-60,-62,-64,-66,-68,-70,-72,-74,-76,-78]
+    };
+    var rou=nrank-lrank;
+    if(rou>0){
+        for(var x=1;x<=2;x++){
+            for(var y=0;y<scTableA[x].length;y++){
+                if(rou==scTableA[x][y])return x;
+            }
+        }
+        return "Err.a";
+    } else if(rou<0){
+        for(var x=2;x<=4;x++){
+            for(var y=0;y<scTableB[x].length;y++){
+                if(rou==scTableB[x][y])return x;
+            }
+        }
+        return "Err.b";
+    }else{
+        return "-";
+    }
+};
+var CR_LRANK=null;
+drawOne = function (date,callback) {
     var uri = ROOTDIR + date + "/result/" + GID + ".json";
     $.getJSON(uri).done(function (data) {
         data['date'] = date;
@@ -84,6 +118,17 @@ drawOne = function (date) {
         tr.addClass("historic-p");
         tr.appendTo($(".historic"));
         dp.parse($("." + tstr), data);
+        try{
+
+            var nrank=parseInt(data.data.guild_temp.rating);
+            if(CR_LRANK!=null){
+                tr.find(".HZrank").html(calcRank(nrank,CR_LRANK));
+            }
+            CR_LRANK=nrank;
+        }catch(e){
+            errpush(e);
+            console.error(e);
+        }
         tr.show();
         tr.find(".btn-detail").click(function(){
             _go("?gid="+GID+"&date="+date);
@@ -91,6 +136,9 @@ drawOne = function (date) {
         if(date==NOW_DATE){
             tr.addClass("warning").find(".btn-detail").html("-");
         }
+        setTimeout(function(){
+            callback();
+        },1);
     });
 
 

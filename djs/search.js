@@ -24,13 +24,13 @@ $().ready(function () {
                         $(".big-warn").hide();
                         setTimeout(function () {
                             search(keyword);
-                        }, 200);
+                        }, 10);
                         $(".search-result").show();
                     });
                 } else {
                     setTimeout(function () {
                         search(keyword);
-                    }, 200);
+                    }, 10);
                     $(".search-result").show();
                 }
             }
@@ -57,8 +57,7 @@ search = function (keyword) {
                         drawOne(k, 0, function () {
                             if (SEARCH_DONE && !DRAW_BUSY && DRAWED_COUNT == FOUND_COUNT) {
                                 $(".tbody-loading").hide();
-                                $("table").show();
-                                $('table').DataTable({
+                                $("table").show().DataTable({
                                     "aoColumnDefs": [
                                         {"sType": "num", "aTargets": [5, 6, 7, 8]}
                                     ],
@@ -80,7 +79,7 @@ search = function (keyword) {
                                     'iDisplayLength': 15
                                 });
                             }
-                        }, 1);
+                        }, 0);
                     });
                 }
                 if (count == length - 1) {
@@ -111,7 +110,6 @@ drawOne = function (gid, tDateIndex, callback) {
     setTimeout(function () {
         drawOneByDate(gid, DATE_INDEX["" + tDateIndex], function (succ) {
             if (!succ) {
-
                 drawOne(gid, tDateIndex + 1, callback);
             } else {
                 DRAW_BUSY = false;
@@ -136,7 +134,6 @@ drawOneByDate = function (gid, date, callback) {
             });
             tr.appendTo($(".historic"));
         dp.parse($("." + tstr), data);
-
         callback(true);
     }).fail(function () {
         callback(false);
