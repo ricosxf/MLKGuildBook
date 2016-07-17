@@ -51,7 +51,7 @@ search = function (keyword) {
         $.each(data, function (k, v) {
             count++;
             try {
-                if (JSON.stringify(v).indexOf(keyword) != -1) {
+                if (JSON.stringify(v).toLowerCase().indexOf(keyword.toLowerCase()) != -1) {
                     FOUND_COUNT++;
                     setTimeout(function () {
                         drawOne(k, 0, function () {
@@ -84,7 +84,7 @@ search = function (keyword) {
                 }
                 if (count == length - 1) {
                     if (FOUND_COUNT == 0) {
-                        $(".loading-msg").html("找不到指定的工会..喵呜~<br>PS:曾用名只记录有7月12日之后的喵~");
+                        $(".loading-msg").html("找不到指定的公会..喵呜~<br>PS:曾用名只记录有7月12日之后的喵~");
                     } else {
                         SEARCH_DONE = true;
                         $(".loading-msg").html("正在加载数据(数据过多时可能会有迷之卡顿,请耐心等待喵~)...");

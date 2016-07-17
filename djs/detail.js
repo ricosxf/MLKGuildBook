@@ -140,6 +140,10 @@ drawOne = function (date, callback) {
         setTimeout(function () {
             callback();
         }, 1);
+    }).fail(function(){
+        setTimeout(function () {
+            callback();
+        }, 1);
     });
 
 
