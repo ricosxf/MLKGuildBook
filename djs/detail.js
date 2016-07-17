@@ -1,15 +1,14 @@
-
 var GID;
 var DATE;
 var COUNT = 0;
 var NOW_PAGE = 0;
 var NOW_DATE;
 showDetail = function () {
-    var uri = ROOTDIR + DATE + "/result/" + GID + ".json"+"?timestamp=" + new Date().getTime();
+    var uri = ROOTDIR + DATE + "/result/" + GID + ".json" + "?timestamp=" + new Date().getTime();
     console.log(uri);
     $.getJSON(uri).done(function (data) {
-        data['date']=DATE;
-        NOW_DATE=DATE;
+        data['date'] = DATE;
+        NOW_DATE = DATE;
         dp.parse($(".guild-detail"), data);
     }).fail(function () {
         errpush("fail to get");
@@ -17,58 +16,58 @@ showDetail = function () {
 };
 showHistoric = function (page) {
     //drawOne("2016-7-11.15.48");
-    $.getJSON(ROOTDIR + "/d.json"+"?timestamp=" + new Date().getTime())
+    $.getJSON(ROOTDIR + "/d.json" + "?timestamp=" + new Date().getTime())
         .done(function (data) {
-            NOW_PAGE=page;
+            NOW_PAGE = page;
             $(".np").html(page);
             if (page == 1)$(".p-forward").hide(); else $(".p-forward").show();
             COUNT = data['count'];
-            if (page*10>=COUNT)$(".p-next").hide(); else $(".p-next").show();
+            if (page * 10 >= COUNT)$(".p-next").hide(); else $(".p-next").show();
             $(".totally").html(COUNT);
             $(".historic-p").remove();
-            var loader=function(now){
-                if(now >= page * 10){
+            var loader = function (now) {
+                if (now >= page * 10) {
                     return;
                 }
                 if (typeof(data[now]) == "undefined")return;
-                else drawOne(data[now],function(){
-                    loader(now+1);
+                else drawOne(data[now], function () {
+                    loader(now + 1);
                 });
             };
             loader(0);
             /*
-            $('#historic-table').DataTable({
-                "aoColumnDefs": [
-                    { "sType": "num", "aTargets": [5,6,7,8] }
-                ],
-                "language": {
-                    "search": "",
-                    "searchPlaceholder":"筛选",
-                    "thousands":",",
-                    "lengthMenu": "每页显示 _MENU_ 个结果",
-                    "info": "第 _PAGE_ 页，共 _PAGES_ 页",
-                    "paginate":{
-                        "first":"第一页",
-                        "last":"最后一页",
-                        "next":"下一页",
-                        "previous":"上一页"
-                    }
+             $('#historic-table').DataTable({
+             "aoColumnDefs": [
+             { "sType": "num", "aTargets": [5,6,7,8] }
+             ],
+             "language": {
+             "search": "",
+             "searchPlaceholder":"筛选",
+             "thousands":",",
+             "lengthMenu": "每页显示 _MENU_ 个结果",
+             "info": "第 _PAGE_ 页，共 _PAGES_ 页",
+             "paginate":{
+             "first":"第一页",
+             "last":"最后一页",
+             "next":"下一页",
+             "previous":"上一页"
+             }
 
-                },
-                "aLengthMenu": [[15, 20, 50, -1,0], [15, 20, 50, "所有","无限剑制"]],
-                'iDisplayLength': 15
-            });*/
+             },
+             "aLengthMenu": [[15, 20, 50, -1,0], [15, 20, 50, "所有","无限剑制"]],
+             'iDisplayLength': 15
+             });*/
         })
         .fail(function () {
             errpush("获取日期详情失败。");
         });
 };
 $().ready(function () {
-    $(".p-forward").click(function(){
-        showHistoric(NOW_PAGE-1);
+    $(".p-forward").click(function () {
+        showHistoric(NOW_PAGE - 1);
     });
-    $(".p-next").click(function(){
-        showHistoric(NOW_PAGE+1);
+    $(".p-next").click(function () {
+        showHistoric(NOW_PAGE + 1);
     });
     GID = GetQueryString("gid");
     DATE = GetQueryString("date");
@@ -77,68 +76,70 @@ $().ready(function () {
         showHistoric(1);
     }, 1000);
 });
-calcRank=function(lrank,nrank){
-    var scTableA={
-        1:[80,72,64,56,48,50,32,24,16,8],
-        2:[40,34,28,22,16,10,4,-1]
+calcRank = function (lrank, nrank) {
+    var scTableA = {
+        1: [80, 72, 64, 56, 48, 40, 32, 24, 16, 8],
+        2: [40, 34, 28, 22, 16, 10, 4]
     };
-    var scTableB={
-        2:[-1,-8,-14],
-        3:[-10,-14,-18,-22,-26,-30,-34,-38,-42,-46],
-        4:[-60,-62,-64,-66,-68,-70,-72,-74,-76,-78]
+    var scTableB = {
+        2: [-2, -8, -14],
+        3: [-10, -14, -18, -22, -26, -30, -34, -38, -42, -46],
+        4: [-60, -62, -64, -66, -68, -70, -72, -74, -76, -78]
     };
-    var rou=nrank-lrank;
-    if(rou>0){
-        for(var x=1;x<=2;x++){
-            for(var y=0;y<scTableA[x].length;y++){
-                if(rou==scTableA[x][y])return x;
+    var rou = nrank - lrank;
+    if (rou > 0) {
+        if (rou == 40)
+            return lrank % 1000 < 100 ? 2 : 1;
+        for (var x = 1; x <= 2; x++) {
+            for (var y = 0; y < scTableA[x].length; y++) {
+                if (rou == scTableA[x][y])return x;
             }
         }
         return "Err.a";
-    } else if(rou<0){
-        for(var x=2;x<=4;x++){
-            for(var y=0;y<scTableB[x].length;y++){
-                if(rou==scTableB[x][y])return x;
+    } else if (rou < 0) {
+        for (var x = 2; x <= 4; x++) {
+            for (var y = 0; y < scTableB[x].length; y++) {
+                if (rou == scTableB[x][y])return x;
             }
         }
         return "Err.b";
-    }else{
+    } else {
         return "-";
     }
 };
-var CR_LRANK=null;
-drawOne = function (date,callback) {
+var CR_LRANK = null;
+drawOne = function (date, callback) {
     var uri = ROOTDIR + date + "/result/" + GID + ".json";
     $.getJSON(uri).done(function (data) {
         data['date'] = date;
-        var tstr = "GREE" + GID + date.replace(/\./g, "-").replace(/\(/g,"").replace(/\)/g,"").replace(/ /g,"");
+        var tstr = "GREE" + GID + date.replace(/\./g, "-").replace(/\(/g, "").replace(/\)/g, "").replace(/ /g, "");
         var tr = $("<tr></tr>");
         tr.html($(".historic-simple").html());
         tr.addClass(tstr);
         tr.addClass("historic-p");
         tr.appendTo($(".historic"));
         dp.parse($("." + tstr), data);
-        try{
+        try {
 
-            var nrank=parseInt(data.data.guild_temp.rating);
-            if(CR_LRANK!=null){
-                tr.find(".HZrank").html(calcRank(nrank,CR_LRANK));
+            var nrank = parseInt(data.data.guild_temp.rating);
+            if (CR_LRANK != null) {
+                tr.find(".HZrank").html(calcRank(nrank, CR_LRANK));
             }
-            CR_LRANK=nrank;
-        }catch(e){
+            CR_LRANK = nrank;
+        } catch (e) {
             errpush(e);
             console.error(e);
         }
         tr.show();
-        tr.find(".btn-detail").click(function(){
-            _go("?gid="+GID+"&date="+date);
+        tr.find(".btn-detail").click(function () {
+            _go("?gid=" + GID + "&date=" + date);
         });
-        if(date==NOW_DATE){
+        if (date == NOW_DATE) {
             tr.addClass("warning").find(".btn-detail").html("-");
         }
-        setTimeout(function(){
+        setTimeout(function () {
             callback();
-        },1);
+        }, 1);
     });
 
 
