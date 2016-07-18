@@ -6,7 +6,7 @@ var DRAWED_COUNT = 0;
 
 $().ready(function () {
 
-    $.getJSON(ROOTDIR + "/d.json"+"?timestamp=" + new Date().getTime())
+    $.getJSON(ROOTDIR + "/d.json" + "?timestamp=" + new Date().getTime())
         .done(function (data) {
             DATE_INDEX = data;
             var keyword = GetQueryString("keyword");
@@ -45,7 +45,7 @@ search = function (keyword) {
     $(".loading-msg").html("正在查找...");
     //$("#loading-progress").css({width:"100%"});
     console.log("search:" + keyword);
-    $.getJSON(ROOTDIR + "/index.json"+"?timestamp=" + new Date().getTime()).done(function (data) {
+    $.getJSON(ROOTDIR + "/index.json" + "?timestamp=" + new Date().getTime()).done(function (data) {
         var length = JSONLength(data);
         var count = 0;
         $.each(data, function (k, v) {
@@ -57,7 +57,8 @@ search = function (keyword) {
                         drawOne(k, 0, function () {
                             if (SEARCH_DONE && !DRAW_BUSY && DRAWED_COUNT == FOUND_COUNT) {
                                 $(".tbody-loading").hide();
-                                $("table").show().DataTable({
+                                $("table").show();
+                                $("table").DataTable({
                                     "aoColumnDefs": [
                                         {"sType": "num", "aTargets": [5, 6, 7, 8]}
                                     ],
@@ -79,13 +80,14 @@ search = function (keyword) {
                                     'iDisplayLength': 15
                                 });
                             }
-                        }, 0);
+                        }, 1);
                     });
                 }
                 if (count == length - 1) {
                     if (FOUND_COUNT == 0) {
                         $(".loading-msg").html("找不到指定的公会..喵呜~<br>PS:曾用名只记录有7月12日之后的喵~");
                     } else {
+
                         SEARCH_DONE = true;
                         $(".loading-msg").html("正在加载数据(数据过多时可能会有迷之卡顿,请耐心等待喵~)...");
                     }
@@ -99,14 +101,20 @@ search = function (keyword) {
         errpush("获取索引失败。");
     });
 };
+var DDP = 0;
 drawOne = function (gid, tDateIndex, callback) {
     DRAW_BUSY = true;
     if (typeof(DATE_INDEX["" + tDateIndex]) == "undefined") {
         errpush("Unknown Error." + tDateIndex);
         return;
     }
-    $(".loading-gid").html(gid);
-    $("#loading-progress").css({width: "" + ((DRAWED_COUNT / FOUND_COUNT) * 100) + "%"});
+    //$(".loading-gid").html(gid);
+    DDP++;
+
+    if (DDP == 10) {
+        $("#loading-progress").css({width: "" + ((DRAWED_COUNT / FOUND_COUNT) * 100) + "%"});
+        DDP = 0;
+    }
     setTimeout(function () {
         drawOneByDate(gid, DATE_INDEX["" + tDateIndex], function (succ) {
             if (!succ) {
@@ -117,22 +125,22 @@ drawOne = function (gid, tDateIndex, callback) {
                 callback();
             }
         });
-    });
+    }, 1);
 };
 drawOneByDate = function (gid, date, callback) {
     var uri = ROOTDIR + date + "/result/" + gid + ".json";
     $.getJSON(uri).done(function (data) {
         var tstr = "" + gid + "".replace(/\./g, "-").replace(/\(/g, "").replace(/\)/g, "").replace(/ /g, "");
         data.date = date;
-        var tr=$("<tr></tr>");
+        var tr = $("<tr></tr>");
         tr.html($(".historic-simple").html());
-            tr.addClass(tstr);
-            tr.addClass("historic-p");
-            tr.show();
-            tr.find(".btn-detail").click(function () {
-                window.open("detail.html?gid=" + gid + "&date=" + date);
-            });
-            tr.appendTo($(".historic"));
+        tr.addClass(tstr);
+        tr.addClass("historic-p");
+        tr.show();
+        tr.find(".btn-detail").click(function () {
+            window.open("detail.html?gid=" + gid + "&date=" + date);
+        });
+        tr.appendTo($(".historic"));
         dp.parse($("." + tstr), data);
         callback(true);
     }).fail(function () {
