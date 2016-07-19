@@ -1,5 +1,4 @@
 .wl-box {
-
     max-width: 1080px;
     -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.13);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.13);
@@ -14,7 +13,7 @@
     border-top-color: #eee;
 }
 
-html {
+html, body {
     background: #ffffff;
 }
 
