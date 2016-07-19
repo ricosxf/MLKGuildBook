@@ -68,15 +68,15 @@ $().ready(function () {
     $(document).ajaxStart(function () {
         $(".spinner").show();
     });
-    compileTimeout=null;
-    $(document).ajaxComplete(function(){
-        if(compileTimeout!=null){
+    compileTimeout = null;
+    $(document).ajaxComplete(function () {
+        if (compileTimeout != null) {
             clearTimeout(compileTimeout);
-            compileTimeout=null;
+            compileTimeout = null;
         }
-        compileTimeout=setTimeout(function(){
+        compileTimeout = setTimeout(function () {
             $(".spinner").hide();
-        },1000);
+        }, 1000);
     });
     applytheme(null);
     var setActiveStyleSheet = function (css) {

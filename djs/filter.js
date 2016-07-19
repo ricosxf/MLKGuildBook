@@ -1,5 +1,5 @@
 filter_guild_rank_id = function (obj, data) {
-    switch (data) {
+    switch (parseInt(data)) {
         case 0:
             return "B";
         case 1:

@@ -10,8 +10,9 @@ showDetail = function () {
         data['date'] = DATE;
         NOW_DATE = DATE;
         dp.parse($(".guild-detail"), data);
+        $(".HZtx").attr("src", "http://bbtfr.github.io/MerusutoChristina/data/units/icon/" + data.data.search_index_temp.master_leader_unit_id + ".png");
     }).fail(function () {
-        errpush("fail to get");
+        errpush("加载数据失败，请重试");
     });
 };
 showHistoric = function (page) {
@@ -71,6 +72,7 @@ $().ready(function () {
     });
     GID = GetQueryString("gid");
     DATE = GetQueryString("date");
+    window.history.replaceState(null, null, "?date=" + DATE + "&gid=" + GID + "&from=url");
     showDetail();
     setTimeout(function () {
         showHistoric(1);
@@ -140,7 +142,7 @@ drawOne = function (date, callback) {
         setTimeout(function () {
             callback();
         }, 1);
-    }).fail(function(){
+    }).fail(function () {
         setTimeout(function () {
             callback();
         }, 1);

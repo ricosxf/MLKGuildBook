@@ -53,22 +53,24 @@
 
         </ul>
         <br>
-        <a href="https://github.com/wDCat/MLKGuildBook/issues" class="btn btn-primary">点我反馈喵~</a>
+        <a href="http://tieba.baidu.com/p/4679813226" class="btn btn-cs" target="_blank">点我反馈汪~</a>
+        <a href="https://github.com/wDCat/MLKGuildBook/issues" class="btn btn-cs btn-flat" target="_blank">点我反馈喵~</a>
     </div>
     <div class="wl-box wl-box-large guild-detail">
-        <h1>
-            <center>
+        <center>
+            <h1>
+                <img src="" class="HZtx" />
                 <dp>$.data.guild_temp.name</dp>
-            </center>
-        </h1>
+            </h1>
+        </center>
     </div>
     <div class="wl-box wl-box-large guild-detail">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-2">
                 <h2>详情</h2>
             </div>
-            <div class="col-md-9" style="text-align: right">
-                <h2>当前数据获取时间：<code>
+            <div class="col-md-9 col-xs-10" style="text-align: right">
+                <h2>数据获取时间：<code>
                     <dp>$.date|filter_date</dp>
                 </code></h2>
             </div>
@@ -155,14 +157,15 @@
                             <th scope="row">会长</th>
                             <td>
                                 <dp>$.data.guild_temp.master_name</dp>
-                                <span class="ryrx"><a href="javascript:void(0);" class="swap">不满意?换一个</a></span>
+                                <span class="ryrx"><a href="javascript:void(0);" class="swap text-cs">不满意?换一个</a></span>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="sex_name">会长种族</th>
                             <td>
                                 <dp>$.data.guild_temp.master_name|filter_get_sex_by_name</dp>
-                                <span class="ryrx"><a href="javascript:void(0);" class="swap">不满意?换一个</a> </span>
+                                <span class="ryrx"><a href="javascript:void(0);"
+                                                      class="swap text-cs">不满意?换一个</a> </span>
                             </td>
                         </tr>
                         <tr>
@@ -175,7 +178,7 @@
                             <th scope="row">会长头像ID</th>
                             <td>
                                 <dp class="unitid">$.data.search_index_temp.master_leader_unit_id</dp>
-                                <a href="#"
+                                <a class="text-cs" href="#"
                                    onclick="window.open('http://bbtfr.github.io/MerusutoChristina/desktop/#units/'+$('.unitid').html());">打开图鉴</a>
                             </td>
                         </tr>

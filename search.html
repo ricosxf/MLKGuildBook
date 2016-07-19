@@ -13,7 +13,24 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<button class="btn-cs" style="display: none;">打开通往异世界的大门</button>
+<div id="complete-dialog" class="modal fade" tabindex="-1" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">喵</h4>
+            </div>
+            <div class="modal-body">
+                <p>真的要列出所有公会?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cs yes" data-dismiss="modal"> 是</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"> 否</button>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn-cs ask" style="display: none;" data-toggle="modal" data-target="#complete-dialog">打开通往异世界的大门</button>
 <nav class="navbar navbar-inverse navbar-fixed-top wl-nav shadow-z-1" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -52,7 +69,8 @@
 
         </ul>
         <br>
-        <a href="https://github.com/wDCat/MLKGuildBook/issues" class="btn btn-primary">点我反馈喵~</a>
+        <a href="http://tieba.baidu.com/p/4679813226" class="btn btn-cs" target="_blank">点我反馈汪~</a>
+        <a href="https://github.com/wDCat/MLKGuildBook/issues" class="btn btn-cs btn-flat" target="_blank">点我反馈喵~</a>
     </div>
     <div class="wl-box wl-box-large">
         <h2>搜索</h2>
@@ -62,21 +80,23 @@
             </div>
             <center>
                 <button type="submit" class="btn btn-cs">搜索搜索搜</button>
-                <button type="button" class="btn btn-default" onclick="$('#searchbox').val('');$('form').submit();">列出所有</button>
+                <button type="button" class="btn btn-default" onclick="$('#searchbox').val('');$('form').submit();">
+                    列出所有
+                </button>
             </center>
         </form>
     </div>
     <div class="wl-box wl-box-large big-warn" style="display: none;">
         <h2>WARN</h2>
-            <center>
-                <h2>显示所有数据可能会造成短暂卡顿，继续？</h2>
-                <br>
-                <button type="submit" class="btn btn-cs yes">  是  </button>
-                <button type="button" class="btn btn-default" onclick="window.location.href='search.html';">  否  </button>
-            </center>
+        <center>
+            <h2>显示所有数据可能会造成短暂卡顿，继续？</h2>
+            <br>
+            <button type="submit" class="btn btn-cs yes"> 是</button>
+            <button type="button" class="btn btn-default" onclick="window.location.href='search.html';"> 否</button>
+        </center>
     </div>
     <div class="wl-box wl-box-large search-result" style="display: none;">
-        <h2>结果</h2>
+        <h2 class="result_title" style="display:none;">结果</h2>
         <div class="">
             <div class=" row">
                 <div class="col-md-12 table-responsive">
@@ -85,7 +105,7 @@
                             <center class="loading-msg">请稍后...</center>
                         </h2>
                         <div class="progress">
-                            <div class="progress-bar" id="loading-progress" role="progressbar" style="width: 0%;">
+                            <div class="progress-bar progress-bar-material-indigo" id="loading-progress" role="progressbar" style="width: 0%;">
 
                             </div>
                         </div>
@@ -115,30 +135,30 @@
                                 <dp>$.date|filter_date</dp>
                             </th>
                             <th>
-                                <dp>$.data.search_index_temp.updated_at|filter_date_mlk</dp>
+                                <dp>$.updated_at|filter_date_mlk</dp>
                             </th>
                             <td>
-                                <dp>$.data.guild_temp.name</dp>
+                                <dp>$.name</dp>
                             </td>
                             <td>
-                                <dp>$.data.guild_temp.master_name</dp>
+                                <dp>$.master_name</dp>
                             </td>
                             <td>
-                                <dp>$.data.guild_temp.rank_id|filter_guild_rank_id</dp>
+                                <dp>$.rank_id|filter_guild_rank_id</dp>
                             </td>
                             <td>
-                                <dp>$.data.guild_temp.rating</dp>
+                                <dp>$.rating</dp>
                             </td>
                             <td>
-                                <dp>$.data.guild_temp.guild_ranking_point</dp>
+                                <dp>$.guild_ranking_point</dp>
                             </td>
                             <td>
-                                <dp>$.data.guild_temp.guild_ranking_rank</dp>
+                                <dp>$.guild_ranking_rank</dp>
                             </td>
                             <td>
-                                <dp>$.data.search_index_temp.users_count</dp>
+                                <dp>$.users_count</dp>
                             </td>
-                            <td><a href="#" class="btn btn-cs btn-detail btn-flat">查看详情</a></td>
+                            <td><a href="#" target="_blank" class="btn btn-cs btn-detail btn-flat">查看详情</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -162,7 +182,8 @@
 
 <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
 <center>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259893542'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1259893542' type='text/javascript'%3E%3C/script%3E"));</script>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1259893542'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1259893542' type='text/javascript'%3E%3C/script%3E"));</script>
 </center>
 </body>
 </html>
