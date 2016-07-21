@@ -48,9 +48,24 @@ filter_date = function (obj, data) {
     }
 };
 filter_date_mlk = function (obj, data) {
-    if (data.indexOf("T") != -1) {
-        data = data.replace(/T/g, " ");
-        data = data.replace(/\+08:00/g, " ");
+    if (data != null)
+        if (data.indexOf("T") != -1) {
+            data = data.replace(/T/g, " ");
+            data = data.replace(/\+08:00/g, " ");
+        }
+    return data;
+};
+jjj = function (obj, data) {
+    return null;
+}
+filter_num = function (obj, data) {
+    try {
+        if (parseInt(data) == -1 || parseInt(data) == 9999) {
+            return new dp_filter_ret(data, function (o, r) {
+                $(o).hide();
+            });
+        }
+    } catch (e) {
     }
     return data;
 };

@@ -30,7 +30,8 @@
         <div class="collapse navbar-collapse nav-ul" id="eee">
             <ul class="nav navbar-nav">
                 <li class=""><a href="about.html">主页&关于</a></li>
-                <li class=""><a href="search.html">查找</a></li>
+                <li class=""><a href="search.html?keyword=">公会列表</a></li>
+                <li class=""><a href="search.html">查找公会</a></li>
                 <li class="active"><a href="#">详情</a></li>
                 <li class=""><a href="changelog.html">更新日志</a></li>
             </ul>
@@ -56,330 +57,20 @@
         <a href="http://tieba.baidu.com/p/4679813226" class="btn btn-cs" target="_blank">点我反馈汪~</a>
         <a href="https://github.com/wDCat/MLKGuildBook/issues" class="btn btn-cs btn-flat" target="_blank">点我反馈喵~</a>
     </div>
-    <div class="wl-box wl-box-large guild-detail">
+    <div class="wl-box wl-box-large guild-header">
         <center>
             <h1>
-                <img src="" class="HZtx" />
+                <img src="" class="HZtx"/>
                 <dp>$.data.guild_temp.name</dp>
             </h1>
         </center>
     </div>
     <div class="wl-box wl-box-large guild-detail">
-        <div class="row">
-            <div class="col-md-3 col-xs-2">
-                <h2>详情</h2>
-            </div>
-            <div class="col-md-9 col-xs-10" style="text-align: right">
-                <h2>数据获取时间：<code>
-                    <dp>$.date|filter_date</dp>
-                </code></h2>
-            </div>
-        </div>
-
-        <div class="board container">
-            <div class="row">
-                <div class="col-md-6 table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">会名</th>
-                            <td>
-                                <dp class="guild_name">$.data.guild_temp.name</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">数据更新于</th>
-                            <td>
-                                <dp>$.data.search_index_temp.updated_at|filter_date_mlk</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">人数</th>
-                            <td>
-                                <dp>$.data.search_index_temp.users_count</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">公会创建时间</th>
-                            <td>
-                                <dp>$.data.search_index_temp.created_at|filter_date_mlk</dp>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6 table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">分段</th>
-                            <td>
-                                <dp>$.data.guild_temp.rank_id|filter_guild_rank_id</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">分数</th>
-                            <td>
-                                <dp>$.data.guild_temp.rating</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">GRP</th>
-                            <td>
-                                <dp>$.data.guild_temp.guild_ranking_point</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">公会排行</th>
-                            <td>
-                                <dp>$.data.guild_temp.guild_ranking_rank</dp>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6 table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">会长</th>
-                            <td>
-                                <dp>$.data.guild_temp.master_name</dp>
-                                <span class="ryrx"><a href="javascript:void(0);" class="swap text-cs">不满意?换一个</a></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="sex_name">会长种族</th>
-                            <td>
-                                <dp>$.data.guild_temp.master_name|filter_get_sex_by_name</dp>
-                                <span class="ryrx"><a href="javascript:void(0);"
-                                                      class="swap text-cs">不满意?换一个</a> </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">会长ID</th>
-                            <td>
-                                <dp>$.data.search_index_temp.user_detail_message|filter_hash</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">会长头像ID</th>
-                            <td>
-                                <dp class="unitid">$.data.search_index_temp.master_leader_unit_id</dp>
-                                <a class="text-cs" href="#"
-                                   onclick="window.open('http://bbtfr.github.io/MerusutoChristina/desktop/#units/'+$('.unitid').html());">打开图鉴</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6 table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">加入方式</th>
-                            <td>
-                                <dp>$.data.search_index_temp.approval_type_name</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">公会类型</th>
-                            <td>
-                                <dp>$.data.search_index_temp.play_type_name</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">最后会战结算时间</th>
-                            <td>
-                                <dp>$.data.search_index_temp.rating_updated_at|filter_date_mlk</dp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">最后排名结算时间</th>
-                            <td>
-                                <dp>$.data.search_index_temp.reward_updated_at|filter_date_mlk</dp>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class=" row">
-                    <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>设施名</th>
-                                <th>效果</th>
-                                <th>点数</th>
-                                <th>等级</th>
-                                <th>到下一Lv还差</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">祭坛</th>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.sp.effect</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.sp.point</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.sp.current.level</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.sp.current.until</dp>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">医疗所</th>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.hp.effect</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.hp.point</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.hp.current.level</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.hp.current.until</dp>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">训练所</th>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.at.effect</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.at.point</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.at.current.level</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.at.current.until</dp>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">食堂</th>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.taghness.effect</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.taghness.point</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.taghness.current.level</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.guild_temp.equipments.taghness.current.until</dp>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class=" row">
-                    <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">公会介绍</th>
-                                <td>
-                                    <dp>$.data.search_index_temp.recruit_text</dp>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class=" row">
-                    <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">公会公告</th>
-                                <td>
-                                    <dp>$.data.search_index_temp.memo</dp>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class=" row">
-                    <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>会战</th>
-                                <th>周一</th>
-                                <th>周二</th>
-                                <th>周三</th>
-                                <th>周四</th>
-                                <th>周五</th>
-                                <th>周六</th>
-                                <th>周日</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">会战状态</th>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[0]|filter_boolean</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[1]|filter_boolean</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[2]|filter_boolean</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[3]|filter_boolean</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[4]|filter_boolean</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[5]|filter_boolean</dp>
-                                </td>
-                                <td>
-                                    <dp>$.data.search_index_temp.shifts[6]|filter_boolean</dp>
-                                </td>
-
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <br>
+        <br>
+        <center><h2>Loading....</h2></center>
+        <br>
+        <br>
     </div>
 
     <div class="wl-box wl-box-large">
@@ -440,9 +131,13 @@
                         </tr>
                         </tbody>
                     </table>
-                    <center><a href="#his" class="btn btn-sm btn-cs p-forward">上一页</a> 第<span
-                            class="np">1</span>页 <a href="#his"
-                                                    class="btn btn-sm btn-cs p-next">下一页</a>
+                    <center>
+                        <button type="button" class="btn btn-sm btn-cs p-forward">上一页</button>
+                        第<span
+                            class="np">1</span>页
+                        <button type="button"
+                                class="btn btn-sm btn-cs p-next">下一页
+                        </button>
                     </center>
                 </div>
             </div>

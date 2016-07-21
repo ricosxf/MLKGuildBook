@@ -46,7 +46,8 @@
         <div class="collapse navbar-collapse nav-ul" id="eee">
             <ul class="nav navbar-nav">
                 <li class=""><a href="about.html">主页&关于</a></li>
-                <li class="active"><a href="search.html">查找</a></li>
+                <li class=""><a href="search.html?keyword=">公会列表</a></li>
+                <li class=""><a href="search.html">查找公会</a></li>
                 <li class=""><a href="changelog.html">更新日志</a></li>
             </ul>
 
@@ -105,7 +106,8 @@
                             <center class="loading-msg">请稍后...</center>
                         </h2>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-material-indigo" id="loading-progress" role="progressbar" style="width: 0%;">
+                            <div class="progress-bar progress-bar-material-indigo" id="loading-progress"
+                                 role="progressbar" style="width: 0%;">
 
                             </div>
                         </div>
@@ -117,7 +119,7 @@
                         <thead>
                         <tr>
                             <th>抓取时间</th>
-                            <th>更新时间</th>
+                            <th style="display: none;">更新时间</th>
                             <th>会名</th>
                             <th>会长</th>
                             <th>分段</th>
@@ -134,7 +136,7 @@
                             <th scope="row">
                                 <dp>$.date|filter_date</dp>
                             </th>
-                            <th>
+                            <th style="display: none;">
                                 <dp>$.updated_at|filter_date_mlk</dp>
                             </th>
                             <td>
@@ -150,10 +152,10 @@
                                 <dp>$.rating</dp>
                             </td>
                             <td>
-                                <dp>$.guild_ranking_point</dp>
+                                <dp>$.guild_ranking_point|filter_num</dp>
                             </td>
                             <td>
-                                <dp>$.guild_ranking_rank</dp>
+                                <dp>$.guild_ranking_rank|filter_num</dp>
                             </td>
                             <td>
                                 <dp>$.users_count</dp>

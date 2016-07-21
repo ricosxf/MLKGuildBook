@@ -97,7 +97,8 @@ search_ = function (keyword) {
 
                                         },
                                         "aLengthMenu": [[15, 20, 50, -1, 0], [15, 20, 50, "所有", "无限剑制"]],
-                                        'iDisplayLength': 15
+                                        'iDisplayLength': 15,
+                                        "aaSorting": [[ 6, "desc" ]]
                                     });
                                     applytheme(null);
                                 }

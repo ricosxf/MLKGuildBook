@@ -9,8 +9,19 @@ showDetail = function () {
     $.getJSON(uri).done(function (data) {
         data['date'] = DATE;
         NOW_DATE = DATE;
-        dp.parse($(".guild-detail"), data);
-        $(".HZtx").attr("src", "http://bbtfr.github.io/MerusutoChristina/data/units/icon/" + data.data.search_index_temp.master_leader_unit_id + ".png");
+
+        if (data["data"]["version"] == null) {
+            data["data"]["version"] = 1;
+        }
+        console.log("version:" + data["data"]["version"]);
+        $.get("detail.v" + data["data"]["version"] + ".html").done(function (e) {
+            $(".guild-detail").html(e);
+            $(".HZtx").attr("src", "http://bbtfr.github.io/MerusutoChristina/data/units/icon/" + data.data.search_index_temp.master_leader_unit_id + ".png");
+            dp.parse($(".guild-detail,.guild-header"), data);
+        }).fail(function () {
+            errpush("加载失败TAT");
+        });
+
     }).fail(function () {
         errpush("加载数据失败，请重试");
     });
@@ -23,11 +34,11 @@ showHistoric = function (page) {
             $(".np").html(page);
             if (page == 1)$(".p-forward").hide(); else $(".p-forward").show();
             COUNT = data['count'];
-            if (page * 10 >= COUNT)$(".p-next").hide(); else $(".p-next").show();
+            if (page * 5 >= COUNT)$(".p-next").hide(); else $(".p-next").show();
             $(".totally").html(COUNT);
             $(".historic-p").remove();
             var loader = function (now) {
-                if (now >= page * 10) {
+                if (now >= page * 15) {
                     return;
                 }
                 if (typeof(data[now]) == "undefined")return;
@@ -35,7 +46,7 @@ showHistoric = function (page) {
                     loader(now + 1);
                 });
             };
-            loader(0);
+            loader((page - 1) * 15);
             /*
              $('#historic-table').DataTable({
              "aoColumnDefs": [
@@ -92,6 +103,8 @@ calcRank = function (lrank, nrank) {
     if (rou > 0) {
         if (rou == 40)
             return lrank % 1000 < 100 ? 2 : 1;
+        if (rou == 16)
+            return lrank % 1400 < 100 ? 2 : 1;
         for (var x = 1; x <= 2; x++) {
             for (var y = 0; y < scTableA[x].length; y++) {
                 if (rou == scTableA[x][y])return x;
