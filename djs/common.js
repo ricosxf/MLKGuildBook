@@ -1,5 +1,5 @@
 var ROOTDIR = "https://wdcat.github.io/mthebook/data/";
-
+ROOTDIR="/web/data/";
 errpush = function (msg) {
     $(".errpush").show();
     $("<li></li>").html("<code>" + msg + "</code>").appendTo($(".errpush").find("ul"));

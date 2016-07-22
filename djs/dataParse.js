@@ -48,5 +48,7 @@ var dp_filter_ret = function (data, callback) {
 };
 $.holdReady(true);
 $.getScript("djs/filter.js" + "?timestamp=" + new Date().getTime()).done(function () {
-    $.holdReady(false);
+    $.getScript("djs/push.js" + "?timestamp=" + new Date().getTime()).done(function () {
+        $.holdReady(false);
+    });
 });
