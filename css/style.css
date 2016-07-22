@@ -38,7 +38,12 @@ dp {
 }
 
 .wl-box-large {
-
+    margin: auto auto;
+    margin-top: 1em;
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
     max-width: 1700px;
 }
 
@@ -66,10 +71,12 @@ h2 {
 .loading {
 
 }
-.HZtx{
+
+.HZtx {
     width: 64px;
     height: 64px;
 }
+
 .spinner {
     position: fixed;
     top: 10px;

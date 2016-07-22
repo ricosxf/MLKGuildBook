@@ -214,6 +214,50 @@
                     </tr>
                     </tbody>
                 </table>
+                <div class="table-responsive hzsj" style="display:none;">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>会战</th>
+                            <th>周一</th>
+                            <th>周二</th>
+                            <th>周三</th>
+                            <th>周四</th>
+                            <th>周五</th>
+                            <th>周六</th>
+                            <th>周日</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">会战状态</th>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[0]|filter_boolean</dp>
+                            </td>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[1]|filter_boolean</dp>
+                            </td>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[2]|filter_boolean</dp>
+                            </td>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[3]|filter_boolean</dp>
+                            </td>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[4]|filter_boolean</dp>
+                            </td>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[5]|filter_boolean</dp>
+                            </td>
+                            <td>
+                                <dp>$.data.search_index_temp.shifts[6]|filter_boolean</dp>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         <div class=" row">
@@ -238,50 +282,7 @@
             </div>
         </div>
         <div class=" row">
-            <div class="col-md-12 table-responsive" style="display:none;">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>会战</th>
-                        <th>周一</th>
-                        <th>周二</th>
-                        <th>周三</th>
-                        <th>周四</th>
-                        <th>周五</th>
-                        <th>周六</th>
-                        <th>周日</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">会战状态</th>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[0]|filter_boolean</dp>
-                        </td>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[1]|filter_boolean</dp>
-                        </td>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[2]|filter_boolean</dp>
-                        </td>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[3]|filter_boolean</dp>
-                        </td>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[4]|filter_boolean</dp>
-                        </td>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[5]|filter_boolean</dp>
-                        </td>
-                        <td>
-                            <dp>$.data.search_index_temp.shifts[6]|filter_boolean</dp>
-                        </td>
 
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>

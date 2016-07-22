@@ -17,6 +17,9 @@ showDetail = function () {
         $.get("detail.v" + data["data"]["version"] + ".html").done(function (e) {
             $(".guild-detail").html(e);
             $(".HZtx").attr("src", "http://bbtfr.github.io/MerusutoChristina/data/units/icon/" + data.data.search_index_temp.master_leader_unit_id + ".png");
+            if (typeof(data["data"]["search_index_temp"]["shifts"]) != "undefined") {
+                $(".hzsj").show();
+            }
             dp.parse($(".guild-detail,.guild-header"), data);
         }).fail(function () {
             errpush("加载失败TAT");
@@ -34,7 +37,7 @@ showHistoric = function (page) {
             $(".np").html(page);
             if (page == 1)$(".p-forward").hide(); else $(".p-forward").show();
             COUNT = data['count'];
-            if (page * 5 >= COUNT)$(".p-next").hide(); else $(".p-next").show();
+            if (page * 15 >= COUNT)$(".p-next").hide(); else $(".p-next").show();
             $(".totally").html(COUNT);
             $(".historic-p").remove();
             var loader = function (now) {
@@ -83,7 +86,7 @@ $().ready(function () {
     });
     GID = GetQueryString("gid");
     DATE = GetQueryString("date");
-    window.history.replaceState(null, null, "?date=" + DATE + "&gid=" + GID + "&from=url");
+    window.history.replaceState(null, null, "?date=" + DATE + "&gid=" + GID + "&from=url&ts=" + (new Date()).getTime());
     showDetail();
     setTimeout(function () {
         showHistoric(1);
@@ -135,7 +138,6 @@ drawOne = function (date, callback) {
         tr.appendTo($(".historic"));
         dp.parse($("." + tstr), data);
         try {
-
             var nrank = parseInt(data.data.guild_temp.rating);
             if (CR_LRANK != null) {
                 tr.find(".HZrank").html(calcRank(nrank, CR_LRANK));
@@ -146,12 +148,18 @@ drawOne = function (date, callback) {
             console.error(e);
         }
         tr.show();
-        tr.find(".btn-detail").click(function () {
-            _go("?gid=" + GID + "&date=" + date);
-        });
         if (date == NOW_DATE) {
             tr.addClass("warning").find(".btn-detail").html("-");
         }
+        tr.find(".btn-detail").click(function () {
+            _go("?gid=" + GID + "&date=" + date);
+        });
+        tr.find(".btn-mahjong").click(function () {
+            mahjong.load(data["data"]["guild_temp"]["battle_id"], data["data"]["guild_temp"]["id"], date, function () {
+                mahjong.show();
+            });
+
+        });
         setTimeout(function () {
             callback();
         }, 1);

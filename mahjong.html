@@ -1,0 +1,60 @@
+<div class="div-mahjong">
+    <div id="mahjong-dialog" class="modal fade" tabindex="-1" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close mahjong-dialog-close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title"><code class="mj-date"></code>的会战麻将桌</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info alert-dismissible" role="alert">若公会不在1500名以内，则不会出现在列表中<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                            <table class="table table-hover table-mahjong">
+                                <thead>
+                                <tr>
+                                    <th>会名</th>
+                                    <th>会长</th>
+                                    <th>前分数</th>
+                                    <th>后分数</th>
+                                    <th>名次</th>
+                                </tr>
+                                </thead>
+                                <tbody class="tbody-mahjong">
+                                <tr class="mahjong-simple" style="display: none;">
+                                    <th scope="row">
+                                        <a href="" class="t text-cs" target="_blank">
+                                            <dp>$.data.guild_temp.name</dp>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <dp>$.data.guild_temp.master_name</dp>
+                                    </th>
+                                    <th class="brating">
+
+                                    </th>
+                                    <th class="arating">
+
+                                    </th>
+                                    <th class="rank">
+
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cs " data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn-cs mahjong-dialog-show" style="display: none;" data-toggle="modal" data-target="#mahjong-dialog">
+        打开通往新世界的大门
+    </button>
+</div>

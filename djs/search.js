@@ -18,12 +18,19 @@ $().ready(function () {
             if (keyword != null) {
                 $("#searchbox").val(keyword);
                 if (keyword.length == 0 && sure != 1) {
+                    if (keyword == "") {
+                        $(".hidden-at-all").hide();
+                        $(".menu-list-all").addClass("active");
+                    } else {
+                        $(".menu-list-search").addClass("active");
+                    }
                     //$(".big-warn").show();
                     $(".ask").click();
                     $(".yes").click(function () {
                         $(".big-warn").hide();
                         setTimeout(function () {
                             search(keyword);
+
                         }, 10);
                         $(".search-result").show();
                     });
@@ -33,7 +40,7 @@ $().ready(function () {
                     }, 10);
                     $(".search-result").show();
                 }
-            }
+            } else $(".menu-list-search").addClass("active");
 
         });
 
@@ -77,7 +84,8 @@ search_ = function (keyword) {
                                 if (SEARCH_DONE && !DRAW_BUSY && DRAWED_COUNT == FOUND_COUNT) {
                                     $(".tbody-loading").hide();
                                     $("table").show();
-                                    $(".result_title").show();
+                                    if (keyword != "")
+                                        $(".result_title").show();
                                     $("table").DataTable({
                                         "aoColumnDefs": [
                                             {"sType": "num", "aTargets": [5, 6, 7, 8]}
@@ -98,7 +106,7 @@ search_ = function (keyword) {
                                         },
                                         "aLengthMenu": [[15, 20, 50, -1, 0], [15, 20, 50, "所有", "无限剑制"]],
                                         'iDisplayLength': 15,
-                                        "aaSorting": [[ 6, "desc" ]]
+                                        "aaSorting": [[6, "desc"]]
                                     });
                                     applytheme(null);
                                 }
